@@ -174,7 +174,7 @@ sub formatText {
       # スタックを吐き出す
       push(@result, splice(@saved));
       # 空白文字ではじまり、整形テキスト出力でないなら<p></p>付加
-      if (/^\s+/) {
+      if (/^ +/) {
         ($modeParagraph == 1 &&
          $modePreLevel != 1) ? push(@result, $self->html->inlineElement('p', $_, ()))
                              : push(@result, ($_));

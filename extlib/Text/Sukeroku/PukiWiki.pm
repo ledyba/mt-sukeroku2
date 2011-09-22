@@ -129,7 +129,7 @@ sub formatText {
       push(@result, "<p>");
     }
     # 整形済みテキスト
-    elsif (/^\s(.*)$/) {
+    elsif (/^ (.*)$/) {
       $self->backPush('pre', 1, \@saved, \@result, ());
       push(@result, $self->html->escape($1));
     }
@@ -166,7 +166,7 @@ sub formatText {
       $self->backPush('table', 1, \@saved, \@result, ());
       my $tmp = "$1,";
       my @value = map {/^"(.*)"$/ ? scalar($_ = $1, s/""/"/g, $_) : $_} ($tmp =~ /("[^"]*(?:""[^"]*)*"|[^,]*),/g); # ";
-      my @align = map {(s/^\s+//) ? ((s/\s+$//) ? ' align="center"' : ' align="right"') : ''} @value;
+      my @align = map {(s/^ +//) ? ((s/ +$//) ? ' align="center"' : ' align="right"') : ''} @value;
       my @colspan = map {($_ eq '==') ? 0 : 1} @value;
       for (my $i = 0; $i < @value; $i++) {
         if ($colspan[$i]) {
